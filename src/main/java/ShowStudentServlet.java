@@ -15,7 +15,7 @@ public class ShowStudentServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String name = request.getParameter("name");
-        out.printf("<h3> Hello %s </h3>",name);
+        out.printf("<h3> Hello %s </h3>",(name == null ? "world": name));
 
         int grade = Integer.parseInt(request.getParameter("grade"));
         out.println("<span>Grade: "+grade +" </span>");
