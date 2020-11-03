@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name="HelloWorldServlet", urlPatterns = "/hello-world")
 public class HelloWorldServlet extends HttpServlet {
+    // get requests
     protected void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
