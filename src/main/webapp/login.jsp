@@ -17,7 +17,7 @@
 <html>
 <head>
     <jsp:include page="partials/head.jsp">
-        <jsp:param name="title" value="Login Page"/>
+        <title><jsp:param name="title" value="Login Page"/> </title>
     </jsp:include>
 
 </head>
