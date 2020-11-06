@@ -6,15 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "ViewProfileServlet", urlPatterns = "/profile")
-public class ViewProfileServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = "/logout")
+public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if(session.getAttribute("isLoggedIn") == null || session.getAttribute("isLoggedIn").equals(false)){
-              response.sendRedirect("/login");
-              return;
-        }
-        request.setAttribute("admin",session.getAttribute("isAdmin"));
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+        session.invalidate();
+        session = request.getSession();
+        session.setAttribute("isLoggedIn",false);
+        response.sendRedirect("/login");
+
     }
 }
