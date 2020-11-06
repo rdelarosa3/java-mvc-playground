@@ -10,6 +10,7 @@ import java.io.IOException;
 public class ViewProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        // redirects user if not logged in to login page
         if(session.getAttribute("isLoggedIn") == null || session.getAttribute("isLoggedIn").equals(false)){
               response.sendRedirect("/login");
               return;

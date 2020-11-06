@@ -7,6 +7,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/login">Login</a></li>
+<%--            show logout only if user is logged in--%>
             <c:if test="${sessionScope.isLoggedIn == true}">
             <li><a href="/logout">Logout</a></li>
             </c:if>

@@ -10,10 +10,11 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        // logout user and terminates session
         session.invalidate();
+        // add isLogged out to session
         session = request.getSession();
         session.setAttribute("isLoggedIn",false);
         response.sendRedirect("/login");
-
     }
 }

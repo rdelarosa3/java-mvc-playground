@@ -10,6 +10,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        // if user is logged in redirect to profile page
         if(session.getAttribute("isLoggedIn") != null){
             if(session.getAttribute("isLoggedIn").equals(true)){
                 response.sendRedirect("/profile");
@@ -20,13 +21,13 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean validAttempt = username.equals("admin") && password.equals("password");
-
-        HttpSession session = request.getSession();
-
+//        if login attempt is successful send user to profile page
         if (validAttempt) {
+            // add attributes to session
             session.setAttribute("current_user",username);
             session.setAttribute("isLoggedIn",true);
             response.sendRedirect("/profile");
