@@ -10,7 +10,7 @@
 
     <div class="container">
         <h1>Viewing your profile.</h1>
-        <p>Is Admin: ${isAdmin}</p>
+        <p>Hello: ${current_user}</p>
     </div>
 </body>
 </html>
