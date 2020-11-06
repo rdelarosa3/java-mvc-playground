@@ -6,11 +6,15 @@
             <a class="navbar-brand" href="/ads">Adlister</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <c:choose>
+            <c:when test="${sessionScope.isLoggedIn == null || sessionScope.isLoggedIn == false}">
             <li><a href="/login">Login</a></li>
+            </c:when>
 <%--            show logout only if user is logged in--%>
-            <c:if test="${sessionScope.isLoggedIn == true}">
+            <c:when test="${sessionScope.isLoggedIn == true}">
             <li><a href="/logout">Logout</a></li>
-            </c:if>
+            </c:when>
+            </c:choose>
         </ul>
     </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

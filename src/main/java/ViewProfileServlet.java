@@ -15,7 +15,6 @@ public class ViewProfileServlet extends HttpServlet {
               response.sendRedirect("/login");
               return;
         }
-        request.setAttribute("current_user",session.getAttribute("current_user"));
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
     }
 }

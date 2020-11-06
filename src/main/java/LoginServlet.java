@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 //        if login attempt is successful send user to profile page
         if (validAttempt) {
             // add attributes to session
-            session.setAttribute("current_user",username);
+            session.setAttribute("user",username);
             session.setAttribute("isLoggedIn",true);
             response.sendRedirect("/profile");
         } else {
