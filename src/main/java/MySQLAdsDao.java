@@ -4,13 +4,14 @@ import java.util.List;
 import com.mysql.cj.jdbc.Driver;
 
 public class MySQLAdsDao implements Ads{
+    private Config config = new Config();
     private Connection connection;
     private List<Ad> ads;
 
-    public MySQLAdsDao(Config config){
+    public MySQLAdsDao(){
         try{
             DriverManager.registerDriver(new Driver());
-            this.connection = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     config.getUrl(),
                     config.getUser(),
                     config.getPassword()
@@ -24,7 +25,7 @@ public class MySQLAdsDao implements Ads{
     public List<Ad> all(){
         ads = new ArrayList<>();
         try {
-            Statement statement = this.connection.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM ads");
             while (rs.next()) {
                 Ad ad = new Ad(
@@ -35,11 +36,11 @@ public class MySQLAdsDao implements Ads{
                 );
                 ads.add( ad );
             }
-            if (ads.size() == 0) {
-                generateAds();
-            }
         }catch (SQLException e){
             e.printStackTrace();
+        }
+        if (ads.size() < 1) {
+            generateAds();
         }
         return ads;
     }
@@ -50,7 +51,7 @@ public class MySQLAdsDao implements Ads{
                 ad.getUserId(),ad.getTitle(),ad.getDescription());
         long adId = 0L;
         try {
-            Statement statement = this.connection.createStatement();
+            Statement statement = connection.createStatement();
             statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();
             if (rs.next()) {
@@ -62,29 +63,25 @@ public class MySQLAdsDao implements Ads{
         return adId;
     }
 
-    private List<Ad> generateAds() {
+    private void generateAds() {
         List<Ad> seed = new ArrayList<>();
         seed.add(new Ad(
-                1,
                 1,
                 "playstation for sale",
                 "This is a slightly used playstation"
         ));
 
         seed.add(new Ad(
-                2,
                 1,
                 "Super Nintendo",
                 "Get your game on with this old-school classic!"
         ));
         seed.add(new Ad(
-                3,
                 2,
                 "Junior Java Developer Position",
                 "Minimum 7 years of experience required. You will be working in the scripting language for Java, JavaScript"
         ));
         seed.add(new Ad(
-                4,
                 2,
                 "JavaScript Developer needed",
                 "Must have strong Java skills"
@@ -92,6 +89,6 @@ public class MySQLAdsDao implements Ads{
         for(Ad ad : seed){
             insert(ad);
         }
-        return all();
+        all();
     }
 }
