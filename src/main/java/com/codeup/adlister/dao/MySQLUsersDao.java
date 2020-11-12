@@ -25,23 +25,23 @@ public class MySQLUsersDao implements Users{
     public User findByUsername(String username) {
         User user = null;
         try{
-            String sql = "SELECT * FROM users WHERE user_name LIKE ?";
+            String sql = "SELECT * FROM users WHERE username = ? LIMIT 1";
             String usernameLike = "%" + username + "%";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, usernameLike);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()){
+            if (rs.next()){
                 user = new User(
                         rs.getLong("id"),
-                        rs.getString("user_name"),
+                        rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password")
                 );
             }
 
         }catch (SQLException ex){
-            ex.printStackTrace();
+            throw new RuntimeException("ERROR FINDING USER BY USERNAME", ex);
         }
         return user;
     }
@@ -50,7 +50,7 @@ public class MySQLUsersDao implements Users{
     public Long insert(User user) {
         long key = -1L;
         try{
-            String sql = "INSERT INTO users (user_name, email, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
