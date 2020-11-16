@@ -21,6 +21,7 @@
             <p><c:out value="${ad.description}"/></p>
             <p><c:out value="${ad.getAuthor()}"/></p>
             <p><c:out value="${ad.getUser().email}"/> </p>
+            <a href='/ads/ad?adId=<c:out value="${ad.id}"/>'>View Ad</a>
         </div>
     </c:forEach>
 </div>
