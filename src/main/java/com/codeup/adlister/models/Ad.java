@@ -1,6 +1,8 @@
 <<<<<<< HEAD:src/main/java/com/codeup/adlister/models/Ad.java
 package com.codeup.adlister.models;
 
+import com.codeup.adlister.dao.DaoFactory;
+
 public class Ad {
 =======
 import java.io.Serializable;
@@ -57,5 +59,15 @@ public class Ad implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAuthor(){
+        User user = (User) DaoFactory.getUsersDao().findByUserId(this.userId);
+        return user.getUsername();
+    }
+
+    public User getUser(){
+        User user = (User) DaoFactory.getUsersDao().findByUsername(getAuthor());
+        return user;
     }
 }
