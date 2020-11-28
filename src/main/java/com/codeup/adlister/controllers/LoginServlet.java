@@ -7,7 +7,6 @@ import com.codeup.adlister.util.Password;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +35,17 @@ public class LoginServlet extends HttpServlet {
         }
         boolean validAttempt = BCrypt.checkpw(password,user.getPassword());
 
+        // TODO: find a record in your database that matches the submitted password
+        // TODO: make sure we find a user with that username
+        // TODO: check the submitted password against what you have in your database
+
+        if(user != null && user.getPassword().equals(password)){
+           validAttempt = true;
+        }
+        
 
         if (validAttempt) {
+            // TODO: store the logged in user object in the session, instead of just the username
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         } else {

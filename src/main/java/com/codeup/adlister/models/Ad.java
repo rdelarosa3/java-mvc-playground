@@ -1,14 +1,9 @@
-<<<<<<< HEAD:src/main/java/com/codeup/adlister/models/Ad.java
 package com.codeup.adlister.models;
 
 import com.codeup.adlister.dao.DaoFactory;
-
-public class Ad {
-=======
 import java.io.Serializable;
 
 public class Ad implements Serializable {
->>>>>>> 8794b5c1b627246c855860953d5a3ddfed88707a:src/main/java/Ad.java
     private long id;
     private long userId;
     private String title;

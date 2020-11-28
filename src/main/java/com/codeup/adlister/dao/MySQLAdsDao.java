@@ -37,6 +37,7 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
+
             String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
@@ -73,6 +74,7 @@ public class MySQLAdsDao implements Ads {
         }
         return ad;
     }
+
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
